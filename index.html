@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title> finemino Portfolio </title>
+  <style>
+    /* ---------- Base ---------- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: "Pretendard", "Noto Sans KR", sans-serif;
+      line-height: 1.6;
+      background-color: var(--bg);
+      color: var(--text);
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    :root {
+      --bg: #f9fafb;
+      --text: #1e293b;
+      --card-bg: #ffffff;
+      --accent: #1e40af;
+      --shadow: rgba(0,0,0,0.05);
+    }
+    body.dark {
+      --bg: #0f172a;
+      --text: #f1f5f9;
+      --card-bg: #1e293b;
+      --accent: #3b82f6;
+      --shadow: rgba(0,0,0,0.3);
+    }
+
+    header, section, footer { padding: 60px 20px; }
+
+    /* ---------- Header ---------- */
+    header {
+      background: linear-gradient(135deg, var(--accent), #3b82f6);
+      color: white;
+      text-align: center;
+      padding: 90px 20px;
+      position: relative;
+    }
+    header h1 { font-size: 2.5rem; margin-bottom: 10px; }
+    header p { font-size: 1.1rem; opacity: 0.9; }
+
+    .theme-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.3s ease;
+    }
+    .theme-toggle:hover { background: rgba(255,255,255,0.35); }
+
+    /* ---------- Section Titles ---------- */
+    h2.section-title {
+      text-align: center;
+      font-size: 1.8rem;
+      margin-bottom: 40px;
+      color: var(--accent);
+    }
+
+    /* ---------- Profile ---------- */
+    .profile {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .profile img {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 10px var(--shadow);
+    }
+    .profile h3 { font-size: 1.4rem; margin-bottom: 8px; }
+    .profile p.role { font-weight: 500; color: var(--accent); margin-bottom: 20px; }
+    .profile p.summary { max-width: 600px; margin: 0 auto; }
+
+    /* ---------- Career ---------- */
+    .career {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      gap: 20px;
+    }
+    .career-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 4px 10px var(--shadow);
+    }
+    .career-card h3 { margin-bottom: 6px; color: var(--accent); }
+    .career-card p.period { font-size: 0.9rem; color: gray; margin-bottom: 10px; }
+    .career-card ul { margin-left: 20px; }
+
+    /* ---------- Projects ---------- */
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .project-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 4px 10px var(--shadow);
+      padding: 20px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 15px var(--shadow);
+    }
+    .project-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+    .project-card h4 { margin-bottom: 6px; color: var(--accent); }
+
+    /* ---------- Contact ---------- */
+    .contact { text-align: center; }
+    .social-links {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: white;
+      text-decoration: none;
+      font-size: 1.2rem;
+      transition: background 0.3s ease;
+    }
+    .social-links a:hover { background: #1d4ed8; }
+
+    /* ---------- Footer ---------- */
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #888;
+      border-top: 1px solid rgba(0,0,0,0.1);
+      padding: 30px 10px;
+    }
+
+    /* ---------- Fade-in Animation ---------- */
+    .fade-section {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ---------- Modal ---------- */
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      backdrop-filter: blur(4px);
+    }
+    .modal-content {
+      background: var(--card-bg);
+      color: var(--text);
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 4px 15px var(--shadow);
+      text-align: center;
+      animation: popIn 0.3s ease;
+    }
+    @keyframes popIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .modal-close {
+      margin-top: 20px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 640px) {
+      header h1 { font-size: 1.8rem; }
+      h2.section-title { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header>
+    <button class="theme-toggle" onclick="toggleTheme()">🌙 다크모드</button>
+    <h1>윤민호 | 커리어 포트폴리오</h1>
+    <p>IT 채널영업 전문가로서의 성장과 성과를 기록합니다.</p>
+  </header>
+
+  <!-- PROFILE -->
+  <section id="profile" class="fade-section">
+    <h2 class="section-title">프로필</h2>
+    <div class="profile">
+      <img src="./images/profile-placeholder.jpg" alt="프로필 이미지 자리" />
+      <h3>윤민호</h3>
+      <p class="role">IT 채널영업 / 총판 영업 담당</p>
+      <p class="summary">
+        IT 인프라 및 하이퍼컨버지드(HCI) 솔루션 유통채널을 담당하며,
+        주요 리셀러 및 파트너사 대상 영업 활동을 수행해왔습니다.
+        데이터센터·클라우드 영역의 변화에 발맞춘 비즈니스 제안 역량을 갖추고 있습니다.
+      </p>
+    </div>
+  </section>
+
+  <!-- CAREER -->
+  <section id="career" class="fade-section">
+    <h2 class="section-title">경력</h2>
+    <div class="career">
+      <div class="career-card">
+        <h3>코오롱베니트</h3>
+        <p class="period">2019.03 ~ 현재</p>
+        <ul>
+          <li>총판 IT영업 담당 – 리셀러 대상 인프라/솔루션 영업</li>
+          <li>VMware, Nutanix, Lenovo 등 주요 벤더 영업 활동</li>
+          <li>매출 확대 및 신규 파트너 발굴 프로젝트 리딩</li>
+        </ul>
+      </div>
+      <div class="career-card">
+        <h3>이전 경력 (예시)</h3>
+        <p class="period">2016.01 ~ 2019.02</p>
+        <ul>
+          <li>IT 하드웨어 유통사 근무, 공공/기업 대상 납품 프로젝트 수행</li>
+          <li>매출 관리 및 채널 운영 지원</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="fade-section">
+    <h2 class="section-title">주요 성과 & 프로젝트</h2>
+    <div class="projects">
+      <div class="project-card" data-title="파트너 성장 지원 프로그램 구축" data-desc="리셀러의 영업 역량 강화를 위한 교육/프로모션 기획 및 실행.">
+        <img src="./images/project1-placeholder.jpg" alt="프로젝트 이미지 자리" />
+        <h4>파트너 성장 지원 프로그램 구축</h4>
+        <p>리셀러 역량 강화 프로그램 운영</p>
+      </div>
+      <div class="project-card" data-title="VMware → HCI 솔루션 전환 전략 추진" data-desc="레거시 인프라 고객을 대상으로 Nutanix 중심의 HCI 전환 제안.">
+        <img src="./images/project2-placeholder.jpg" alt="프로젝트 이미지 자리" />
+        <h4>HCI 솔루션 전환 전략</h4>
+        <p>Nutanix 기반 인프라 제안</p>
+      </div>
+      <div class="project-card" data-title="총판 영업 파이프라인 관리 체계화" data-desc="Excel 기반 영업 데이터 분석을 Power BI 대시보드로 고도화.">
+        <img src="./images/project3-placeholder.jpg" alt="프로젝트 이미지 자리" />
+        <h4>영업 파이프라인 체계화</h4>
+        <p>Power BI 기반 데이터 관리</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="fade-section">
+    <h2 class="section-title">연락 및 네트워크</h2>
+    <div class="contact">
+      <p>협업 또는 문의는 언제든 환영합니다.</p>
+      <div class="social-links">
+        <a href="mailto:your.email@example.com" title="Email">✉️</a>
+        <a href="https://www.linkedin.com/in/your-linkedin" title="LinkedIn">in</a>
+        <a href="https://github.com/your-github" title="GitHub">🐱</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>© 2025 Minho Yoon. All rights reserved.</footer>
+
+  <!-- MODAL -->
+  <div class="modal" id="projectModal">
+    <div class="modal-content">
+      <h3 id="modalTitle"></h3>
+      <p id="modalDesc"></p>
+      <button class="modal-close" onclick="closeModal()">닫기</button>
+    </div>
+  </div>
+
+  <script>
+    /* ---------- Theme Toggle ---------- */
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+      const btn = document.querySelector('.theme-toggle');
+      btn.textContent = document.body.classList.contains('dark')
+        ? '☀️ 라이트모드'
+        : '🌙 다크모드';
+    }
+
+    /* ---------- Fade-in on Scroll ---------- */
+    const fadeSections = document.querySelectorAll('.fade-section');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.15 });
+    fadeSections.forEach(sec => observer.observe(sec));
+
+    /* ---------- Modal Logic ---------- */
+    const modal = document.getElementById('projectModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+
+    document.querySelectorAll('.project-card').forEach(card => {
+      card.addEventListener('click', () => {
+        modalTitle.textContent = card.dataset.title;
+        modalDesc.textContent = card.dataset.desc;
+        modal.style.display = 'flex';
+      });
+    });
+
+    function closeModal() { modal.style.display = 'none'; }
+    modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+  </script>
+</body>
+</html>
