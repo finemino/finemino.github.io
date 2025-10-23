@@ -3,348 +3,295 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title> finemino Portfolio </title>
+  <title>윤민호 이력서 & 포트폴리오</title>
   <style>
-    /* ---------- Base ---------- */
+    /* ------------------ 기본 스타일 ------------------ */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: "Pretendard", "Noto Sans KR", sans-serif;
-      line-height: 1.6;
-      background-color: var(--bg);
-      color: var(--text);
-      transition: background 0.3s ease, color 0.3s ease;
+      color: #222;
+      background: #f9fafb;
+      overflow-x: hidden;
     }
-    :root {
-      --bg: #f9fafb;
-      --text: #1e293b;
-      --card-bg: #ffffff;
-      --accent: #1e40af;
-      --shadow: rgba(0,0,0,0.05);
-    }
-    body.dark {
-      --bg: #0f172a;
-      --text: #f1f5f9;
-      --card-bg: #1e293b;
-      --accent: #3b82f6;
-      --shadow: rgba(0,0,0,0.3);
-    }
+    img { max-width: 100%; border-radius: 12px; }
 
     header, section, footer { padding: 60px 20px; }
 
-    /* ---------- Header ---------- */
-    header {
-      background: linear-gradient(135deg, var(--accent), #3b82f6);
-      color: white;
-      text-align: center;
-      padding: 90px 20px;
-      position: relative;
+    /* ------------------ 애니메이션 ------------------ */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    header h1 { font-size: 2.5rem; margin-bottom: 10px; }
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s ease forwards;
+    }
+    .fade-in.delay-1 { animation-delay: 0.3s; }
+    .fade-in.delay-2 { animation-delay: 0.6s; }
+    .fade-in.delay-3 { animation-delay: 0.9s; }
+
+    /* ------------------ 헤더 ------------------ */
+    header {
+      text-align: center;
+      background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+      color: white;
+      padding: 100px 20px;
+    }
+    header h1 { font-size: 2.4rem; margin-bottom: 10px; }
     header p { font-size: 1.1rem; opacity: 0.9; }
 
-    .theme-toggle {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: rgba(255,255,255,0.2);
-      border: none;
-      padding: 8px 14px;
-      border-radius: 8px;
-      color: white;
-      cursor: pointer;
-      font-size: 0.9rem;
-      transition: background 0.3s ease;
-    }
-    .theme-toggle:hover { background: rgba(255,255,255,0.35); }
-
-    /* ---------- Section Titles ---------- */
-    h2.section-title {
+    /* ------------------ 섹션 ------------------ */
+    section h2 {
       text-align: center;
       font-size: 1.8rem;
-      margin-bottom: 40px;
-      color: var(--accent);
+      margin-bottom: 30px;
+      color: #111827;
     }
 
-    /* ---------- Profile ---------- */
+    /* ------------------ 프로필 섹션 ------------------ */
     .profile {
       max-width: 900px;
       margin: 0 auto;
       text-align: center;
     }
     .profile img {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
+      width: 180px;
+      height: 180px;
       object-fit: cover;
+      border-radius: 50%;
       margin-bottom: 20px;
-      box-shadow: 0 4px 10px var(--shadow);
     }
-    .profile h3 { font-size: 1.4rem; margin-bottom: 8px; }
-    .profile p.role { font-weight: 500; color: var(--accent); margin-bottom: 20px; }
-    .profile p.summary { max-width: 600px; margin: 0 auto; }
+    .profile p {
+      font-size: 1rem;
+      color: #4b5563;
+      line-height: 1.6;
+    }
 
-    /* ---------- Career ---------- */
+    /* ------------------ 경력 섹션 ------------------ */
     .career {
-      max-width: 1000px;
+      max-width: 900px;
       margin: 0 auto;
-      display: grid;
-      gap: 20px;
+      line-height: 1.8;
+      color: #374151;
     }
-    .career-card {
-      background: var(--card-bg);
-      border-radius: 12px;
-      padding: 24px;
-      box-shadow: 0 4px 10px var(--shadow);
+    .career-item {
+      margin-bottom: 25px;
     }
-    .career-card h3 { margin-bottom: 6px; color: var(--accent); }
-    .career-card p.period { font-size: 0.9rem; color: gray; margin-bottom: 10px; }
-    .career-card ul { margin-left: 20px; }
+    .career-item h3 {
+      color: #1e3a8a;
+      margin-bottom: 5px;
+      font-size: 1.1rem;
+    }
 
-    /* ---------- Projects ---------- */
+    /* ------------------ 프로젝트 카드 ------------------ */
     .projects {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
+      gap: 25px;
       max-width: 1000px;
       margin: 0 auto;
     }
-    .project-card {
-      background: var(--card-bg);
-      border-radius: 12px;
-      box-shadow: 0 4px 10px var(--shadow);
+    .card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
       padding: 20px;
-      cursor: pointer;
+      text-align: center;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
     }
-    .project-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 6px 15px var(--shadow);
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.08);
     }
-    .project-card img {
+    .card img {
       width: 100%;
-      height: 150px;
+      height: 180px;
       object-fit: cover;
-      border-radius: 8px;
-      margin-bottom: 12px;
+      border-radius: 12px;
+      margin-bottom: 15px;
     }
-    .project-card h4 { margin-bottom: 6px; color: var(--accent); }
+    .card h3 { margin-bottom: 10px; color: #111827; }
 
-    /* ---------- Contact ---------- */
-    .contact { text-align: center; }
-    .social-links {
-      margin-top: 20px;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
+    /* ------------------ CTA ------------------ */
+    .cta {
+      text-align: center;
+      margin-top: 50px;
     }
-    .social-links a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      background: var(--accent);
+    .cta button {
+      background: #1e3a8a;
       color: white;
-      text-decoration: none;
-      font-size: 1.2rem;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
       transition: background 0.3s ease;
     }
-    .social-links a:hover { background: #1d4ed8; }
+    .cta button:hover { background: #1d4ed8; }
 
-    /* ---------- Footer ---------- */
+    /* ------------------ 푸터 ------------------ */
     footer {
       text-align: center;
       font-size: 0.9rem;
-      color: #888;
-      border-top: 1px solid rgba(0,0,0,0.1);
+      color: #6b7280;
+      border-top: 1px solid #e5e7eb;
       padding: 30px 10px;
     }
 
-    /* ---------- Fade-in Animation ---------- */
-    .fade-section {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-    .fade-section.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ---------- Modal ---------- */
+    /* ------------------ 모달 ------------------ */
     .modal {
+      display: none;
       position: fixed;
-      top: 0; left: 0;
+      z-index: 1000;
+      left: 0; top: 0;
       width: 100%; height: 100%;
       background: rgba(0,0,0,0.6);
-      display: none;
-      align-items: center;
       justify-content: center;
-      z-index: 999;
-      backdrop-filter: blur(4px);
+      align-items: center;
+      animation: fadeInUp 0.5s ease;
     }
     .modal-content {
-      background: var(--card-bg);
-      color: var(--text);
+      background: white;
+      border-radius: 16px;
+      max-width: 600px;
       padding: 30px;
-      border-radius: 12px;
-      max-width: 500px;
-      width: 90%;
-      box-shadow: 0 4px 15px var(--shadow);
-      text-align: center;
-      animation: popIn 0.3s ease;
+      text-align: left;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
     }
-    @keyframes popIn {
-      from { transform: scale(0.95); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-    .modal-close {
-      margin-top: 20px;
-      background: var(--accent);
+    .modal-content h3 { margin-bottom: 10px; color: #111827; }
+    .modal-content p { color: #374151; line-height: 1.6; }
+    .close-btn {
+      background: #ef4444;
       color: white;
       border: none;
-      padding: 10px 18px;
+      padding: 8px 16px;
       border-radius: 6px;
       cursor: pointer;
-    }
-
-    /* ---------- Responsive ---------- */
-    @media (max-width: 640px) {
-      header h1 { font-size: 1.8rem; }
-      h2.section-title { font-size: 1.4rem; }
+      float: right;
     }
   </style>
 </head>
 
 <body>
-  <!-- HEADER -->
-  <header>
-    <button class="theme-toggle" onclick="toggleTheme()">🌙 다크모드</button>
-    <h1>윤민호 | 커리어 포트폴리오</h1>
-    <p>IT 채널영업 전문가로서의 성장과 성과를 기록합니다.</p>
+  <!-- 상단 소개 -->
+  <header class="fade-in">
+    <h1>윤민호의 이력서 & 커리어 포트폴리오</h1>
+    <p>IT 채널영업 전문가로서의 성장과 성과를 소개합니다.</p>
   </header>
 
-  <!-- PROFILE -->
-  <section id="profile" class="fade-section">
-    <h2 class="section-title">프로필</h2>
+  <!-- 프로필 섹션 -->
+  <section class="fade-in delay-1">
+    <h2>프로필</h2>
     <div class="profile">
-      <img src="./images/profile-placeholder.jpg" alt="프로필 이미지 자리" />
-      <h3>윤민호</h3>
-      <p class="role">IT 채널영업 / 총판 영업 담당</p>
-      <p class="summary">
-        IT 인프라 및 하이퍼컨버지드(HCI) 솔루션 유통채널을 담당하며,
-        주요 리셀러 및 파트너사 대상 영업 활동을 수행해왔습니다.
-        데이터센터·클라우드 영역의 변화에 발맞춘 비즈니스 제안 역량을 갖추고 있습니다.
+      <img src="./images/포트폴리오.png" alt="프로필 이미지">
+      <p>
+        총판사를 기반으로 리셀러 채널영업을 담당하며, IT 인프라 제품군을 중심으로 비즈니스를 확장해왔습니다.<br>
+        주요 파트너사 관리, 영업 전략 수립, 신규 시장 개척 및 프로젝트 리드 경험을 보유하고 있습니다.
       </p>
     </div>
   </section>
 
-  <!-- CAREER -->
-  <section id="career" class="fade-section">
-    <h2 class="section-title">경력</h2>
+  <!-- 경력 섹션 -->
+  <section class="fade-in delay-2">
+    <h2>경력</h2>
     <div class="career">
-      <div class="career-card">
-        <h3>코오롱베니트</h3>
-        <p class="period">2019.03 ~ 현재</p>
-        <ul>
-          <li>총판 IT영업 담당 – 리셀러 대상 인프라/솔루션 영업</li>
-          <li>VMware, Nutanix, Lenovo 등 주요 벤더 영업 활동</li>
-          <li>매출 확대 및 신규 파트너 발굴 프로젝트 리딩</li>
-        </ul>
+      <div class="career-item">
+        <h3>코오롱베니트 (2020 ~ 현재)</h3>
+        <p>IT 채널영업 담당 – 리셀러 영업 네트워크 구축 및 매출 확대, 총판 운영 효율화.</p>
       </div>
-      <div class="career-card">
-        <h3>이전 경력 (예시)</h3>
-        <p class="period">2016.01 ~ 2019.02</p>
-        <ul>
-          <li>IT 하드웨어 유통사 근무, 공공/기업 대상 납품 프로젝트 수행</li>
-          <li>매출 관리 및 채널 운영 지원</li>
-        </ul>
+      <div class="career-item">
+        <h3>이전 IT 유통사 (2016 ~ 2020)</h3>
+        <p>스토리지, 서버, 백업솔루션 제품군 중심 B2B 영업 및 파트너 관리 수행.</p>
       </div>
     </div>
   </section>
 
-  <!-- PROJECTS -->
-  <section id="projects" class="fade-section">
-    <h2 class="section-title">주요 성과 & 프로젝트</h2>
+  <!-- 프로젝트 카드 -->
+  <section class="fade-in delay-3">
+    <h2>주요 성과 & 프로젝트</h2>
     <div class="projects">
-      <div class="project-card" data-title="파트너 성장 지원 프로그램 구축" data-desc="리셀러의 영업 역량 강화를 위한 교육/프로모션 기획 및 실행.">
-        <img src="./images/project1-placeholder.jpg" alt="프로젝트 이미지 자리" />
-        <h4>파트너 성장 지원 프로그램 구축</h4>
-        <p>리셀러 역량 강화 프로그램 운영</p>
+      <div class="card" onclick="openModal('modal1')">
+        <img src="./images/포트폴리오.png" alt="프로젝트 이미지">
+        <h3>주요 리셀러 네트워크 확장</h3>
+        <p>신규 거래선 20여개 발굴 및 매출 150% 성장 달성</p>
       </div>
-      <div class="project-card" data-title="VMware → HCI 솔루션 전환 전략 추진" data-desc="레거시 인프라 고객을 대상으로 Nutanix 중심의 HCI 전환 제안.">
-        <img src="./images/project2-placeholder.jpg" alt="프로젝트 이미지 자리" />
-        <h4>HCI 솔루션 전환 전략</h4>
-        <p>Nutanix 기반 인프라 제안</p>
+      <div class="card" onclick="openModal('modal2')">
+        <img src="./images/포트폴리오.png" alt="프로젝트 이미지">
+        <h3>벤더 협업 강화 프로젝트</h3>
+        <p>VMware, Nutanix, HPE 등 주요 벤더 공동영업 추진</p>
       </div>
-      <div class="project-card" data-title="총판 영업 파이프라인 관리 체계화" data-desc="Excel 기반 영업 데이터 분석을 Power BI 대시보드로 고도화.">
-        <img src="./images/project3-placeholder.jpg" alt="프로젝트 이미지 자리" />
-        <h4>영업 파이프라인 체계화</h4>
-        <p>Power BI 기반 데이터 관리</p>
+      <div class="card" onclick="openModal('modal3')">
+        <img src="./images/포트폴리오.png" alt="프로젝트 이미지">
+        <h3>채널 프로그램 개선</h3>
+        <p>총판·리셀러 대상 인센티브 구조 및 세일즈 캠페인 기획</p>
       </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta">
+      <button onclick="window.location.href='mailto:your.email@example.com'">문의하기</button>
     </div>
   </section>
 
-  <!-- CONTACT -->
-  <section id="contact" class="fade-section">
-    <h2 class="section-title">연락 및 네트워크</h2>
-    <div class="contact">
-      <p>협업 또는 문의는 언제든 환영합니다.</p>
-      <div class="social-links">
-        <a href="mailto:your.email@example.com" title="Email">✉️</a>
-        <a href="https://www.linkedin.com/in/your-linkedin" title="LinkedIn">in</a>
-        <a href="https://github.com/your-github" title="GitHub">🐱</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>© 2025 Minho Yoon. All rights reserved.</footer>
-
-  <!-- MODAL -->
-  <div class="modal" id="projectModal">
+  <!-- 모달 영역 -->
+  <div id="modal1" class="modal">
     <div class="modal-content">
-      <h3 id="modalTitle"></h3>
-      <p id="modalDesc"></p>
-      <button class="modal-close" onclick="closeModal()">닫기</button>
+      <button class="close-btn" onclick="closeModal('modal1')">닫기</button>
+      <h3>주요 리셀러 네트워크 확장</h3>
+      <p>
+        신규 리셀러 발굴 및 기존 거래선 매출 증대를 통해 채널 커버리지를 확장했습니다.<br>
+        파트너 세그먼트 분석, 리드 관리 체계화, 인센티브 운영 개선을 병행하여 전년 대비 150% 성장 달성.
+      </p>
     </div>
   </div>
 
-  <script>
-    /* ---------- Theme Toggle ---------- */
-    function toggleTheme() {
-      document.body.classList.toggle('dark');
-      const btn = document.querySelector('.theme-toggle');
-      btn.textContent = document.body.classList.contains('dark')
-        ? '☀️ 라이트모드'
-        : '🌙 다크모드';
-    }
+  <div id="modal2" class="modal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal('modal2')">닫기</button>
+      <h3>벤더 협업 강화 프로젝트</h3>
+      <p>
+        주요 IT 벤더와 공동 마케팅/세미나 진행을 통한 시장 점유율 확대.<br>
+        파트너 대상 기술교육 및 세일즈 트레이닝 세션을 기획·운영하여 브랜드 신뢰도 상승.
+      </p>
+    </div>
+  </div>
 
-    /* ---------- Fade-in on Scroll ---------- */
-    const fadeSections = document.querySelectorAll('.fade-section');
+  <div id="modal3" class="modal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal('modal3')">닫기</button>
+      <h3>채널 프로그램 개선</h3>
+      <p>
+        리셀러 대상 인센티브 정책 및 세일즈 캠페인을 재정비하여 거래선 참여율 2배 향상.<br>
+        CRM 기반 실적 관리 자동화로 리포트 효율성 증대.
+      </p>
+    </div>
+  </div>
+
+  <!-- 푸터 -->
+  <footer>
+    © 2025 Minho Yoon. All rights reserved.
+  </footer>
+
+  <!-- 스크립트 -->
+  <script>
+    // Fade-in 처리 (스크롤 시 등장)
+    const fadeEls = document.querySelectorAll('.fade-in');
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.15 });
-    fadeSections.forEach(sec => observer.observe(sec));
-
-    /* ---------- Modal Logic ---------- */
-    const modal = document.getElementById('projectModal');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalDesc = document.getElementById('modalDesc');
-
-    document.querySelectorAll('.project-card').forEach(card => {
-      card.addEventListener('click', () => {
-        modalTitle.textContent = card.dataset.title;
-        modalDesc.textContent = card.dataset.desc;
-        modal.style.display = 'flex';
+        if (entry.isIntersecting) entry.target.style.animationPlayState = 'running';
       });
     });
+    fadeEls.forEach(el => observer.observe(el));
 
-    function closeModal() { modal.style.display = 'none'; }
-    modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+    // 모달 열기/닫기
+    function openModal(id) {
+      document.getElementById(id).style.display = 'flex';
+    }
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
   </script>
 </body>
 </html>
